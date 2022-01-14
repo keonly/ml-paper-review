@@ -5,7 +5,7 @@
 
 ## List of Papers
 1. Attention is all you need (NIPS 2017)
-    - [Original Paper](https://arxiv.org/pdf/1706.03762.pdf) / Code Implementation
+    - [Original Paper](https://arxiv.org/pdf/1706.03762.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/blob/main/code_practices/W1_Attention_is_All_You_Need.ipynb)
 1. LipSync3D: Data-Efficient Learning of Personalized 3D Talking Faces From Video Using Pose and Lighting Normalization (CVPR 2021)
     - [Original Paper](https://arxiv.org/pdf/2106.04185.pdf) / Code Implementation
 1. DORO: Distributional and Outlier Robust Optimization (ICML 2021)
