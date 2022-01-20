@@ -1,13 +1,13 @@
-# ML Paper Reveiw and Implementation Practice
+# ML Paper Review and Implementation Practice
 
 - This repository is for studying several machine learning papers and implementing them in code.
 - A list of papers to be covered in this repository is described below.
 
 ## List of Papers
 1. Attention is all you need (NIPS 2017)
-    - [Original Paper](https://arxiv.org/pdf/1706.03762.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/blob/main/code_practices/W1_Attention_is_All_You_Need.ipynb)
+    - [Original Paper](https://arxiv.org/pdf/1706.03762.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/tree/main/code_practices/W1_Attention)
 1. LipSync3D: Data-Efficient Learning of Personalized 3D Talking Faces From Video Using Pose and Lighting Normalization (CVPR 2021)
-    - [Original Paper](https://arxiv.org/pdf/2106.04185.pdf) / Code Implementation
+    - [Original Paper](https://arxiv.org/pdf/2106.04185.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/tree/main/code_practices/W2_LipSync3D)
 1. DORO: Distributional and Outlier Robust Optimization (ICML 2021)
     - [Original Paper](http://proceedings.mlr.press/v139/zhai21a/zhai21a.pdf) / Code Implementation
 1. MLP-Mixer: An all-MLP Architecture for Vision (NIPS 2021)
