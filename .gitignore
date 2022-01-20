@@ -1,2 +1,5 @@
 # ignore .DS_STORE
 .DS_STORE
+
+# ignore IDE cache directory
+.idea/
