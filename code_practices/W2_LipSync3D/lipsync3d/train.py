@@ -66,6 +66,21 @@ if __name__ == '__main__':
 
             # TODO : Implement training process -------
             geoLoss = None
+
+            audio_feature = data['audio_feature'].to(device)
+            reference_mesh = data['reference_mesh'].to(device)
+            normalized_mesh = data['normalized_mesh'].to(device)
+
+            optimizer.zero_grad()
+
+            geometry_diff = model(audio_feature)
+            geometry_diff.reshape(-1, 478, 3)
+            geometry = reference_mesh + geometry_diff
+
+            geoLoss = criterionGeo(geometry, normalized_mesh)
+            geoLoss.backward()
+
+            optimizer.step()
             # -----------------------------------------
 
             if total_iters % opt.print_freq == 0:
