@@ -9,7 +9,7 @@
 1. LipSync3D: Data-Efficient Learning of Personalized 3D Talking Faces From Video Using Pose and Lighting Normalization (CVPR 2021)
     - [Original Paper](https://arxiv.org/pdf/2106.04185.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/tree/main/code_practices/W2_LipSync3D)
 1. DORO: Distributional and Outlier Robust Optimization (ICML 2021)
-    - [Original Paper](http://proceedings.mlr.press/v139/zhai21a/zhai21a.pdf) / Code Implementation
+    - [Original Paper](http://proceedings.mlr.press/v139/zhai21a/zhai21a.pdf) / [Code Implementation](https://github.com/azure-wings/ML-paper-review/tree/main/code_practices/W3_DORO)
 1. MLP-Mixer: An all-MLP Architecture for Vision (NIPS 2021)
     - [Original Paper](https://arxiv.org/pdf/2105.01601.pdf) / Code Implementation
 1. AugMix: A Simple Data Processing Method to Improve Robustness and Uncertainty (ICLR 2020)
