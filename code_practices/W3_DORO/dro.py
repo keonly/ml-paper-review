@@ -9,7 +9,7 @@ import math
 import scipy.optimize as sopt
 
 import torch
-import torch.nn
+import torch.nn as nn
 from torch import optim
 from torch.nn.modules.module import Module
 from torch.utils.data import DataLoader
@@ -21,10 +21,12 @@ def erm(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
   """Empirical Risk Minimization (ERM)"""
 
   model.train()
+  
   for _, (inputs, targets) in enumerate(loader):
     inputs, targets = inputs.to(device), targets.to(device)
     outputs = model(inputs)
     loss = criterion(outputs, targets).mean()
+    
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
@@ -33,13 +35,45 @@ def erm(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
 def cvar(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
          criterion, device: str, alpha: float):
   """Original CVaR"""
-    raise NotImplementedError
+  
+  model.train()
+  
+  for _, (inputs, targets) in enumerate(loader):
+    inputs, targets = inputs.to(device), targets.to(device)
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+
+    batch_size = len(inputs)
+    n = int(alpha * batch_size)
+    rk = torch.argsort(loss, descending=True)
+    loss = loss[rk[:n]].mean()
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 
 
 def cvar_doro(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
                 criterion, device: str, alpha: float, eps: float):
   """CVaR DORO"""
-    raise NotImplementedError
+  
+  model.train()
+  gamma = eps + alpha * (1 - eps)
+  
+  for _, (inputs, targets) in enumerate(loader):
+    inputs, targets = inputs.to(device), targets.to(device)
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+
+    batch_size = len(inputs)
+    n1 = int(gamma * batch_size)
+    n2 = int(eps * batch_size)
+    rk = torch.argsort(loss, descending=True)
+    loss = loss[rk[n2:n1]].sum() / alpha / (batch_size - n2)
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 
 
 
@@ -50,8 +84,19 @@ def chisq(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
   model.train()
   max_l = 10.
   C = math.sqrt(1 + (1 / alpha - 1) ** 2)
+
   for _, (inputs, targets) in enumerate(loader):
-    raise NotImplementedError
+    inputs, targets = inputs.to(device), targets.to(device)
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+
+    formula = lambda eta: C * torch.sqrt((F.relu(loss - eta) ** 2).mean().item()) + eta
+    opt_eta = sopt.brent(formula, brack=(0, max_l))
+    loss = C * torch.sqrt((F.relu(loss - opt_eta) ** 2).mean()) + opt_eta
+    
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
     
 
 
@@ -63,7 +108,22 @@ def chisq_doro(model: Module, loader: DataLoader, optimizer: optim.Optimizer,
   max_l = 10.
   C = math.sqrt(1 + (1 / alpha - 1) ** 2)
   for _, (inputs, targets) in enumerate(loader):
-    raise NotImplementedError
+    inputs, targets = inputs.to(device), targets.to(device)
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+
+    batch_size = len(inputs)
+    n = int(eps * batch_size)
+    rk = torch.argsort(loss, descending=True)
+    loss = loss[rk[n:]]
+
+    formula = lambda eta: C * math.sqrt((F.relu(loss - eta) ** 2).mean().item()) + eta
+    opt_eta = sopt.brent(formula, brack=(0, max_l))
+    loss = C * torch.sqrt((F.relu(loss - opt_eta) ** 2).mean()) + opt_eta
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 
 
 def train(alg: str, model: Module, loader: DataLoader,

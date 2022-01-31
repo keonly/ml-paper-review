@@ -134,7 +134,7 @@ def main():
   if args.seed is not None:
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
-    torch.set_deterministic(True)
+    torch.use_deterministic_algorithms(True)
     cudnn.benchmark = False
   else:
     cudnn.benchmark = True
