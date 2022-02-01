@@ -3,3 +3,11 @@
 
 # ignore IDE cache directory
 .idea/
+
+# ignore cache/logs
+__pycache__/
+logs/
+
+# ignore (too large) dataset
+data/
+
