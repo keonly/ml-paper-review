@@ -8,8 +8,10 @@
 __pycache__/
 logs/
 
-# ignore (too large) dataset
+# ignore (too large) datasets / models
 data/
+*.pth
+*.pt
 
 data
 ckpt/
