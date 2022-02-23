@@ -1,0 +1,4 @@
+__pycache__/*
+.bash_history
+.cache/
+stylegan2/__pycache__/*
